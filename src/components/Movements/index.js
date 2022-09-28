@@ -19,23 +19,35 @@ export default function Movements({ data }) {
         {showValue ? (
           <AnimatePresence exitBeforeEnter>
             <MotiText
-            from={{
-              translateX: 100,
-            }}
-            animate={{
-              translateX: 0,
-            }}
-            transition={{
-              type: "timing",
-              duration: 500,
-            }}
-            style={data.type === 1 ? styles.value : styles.expense}>
+              from={{
+                translateX: 100,
+              }}
+              animate={{
+                translateX: 0,
+              }}
+              transition={{
+                type: "spring",
+                duration: 500,
+              }}
+              style={data.type === 1 ? styles.value : styles.expense}
+            >
               {data.type === 1 ? `R$ ${data.value}` : `R$ -${data.value}`}
             </MotiText>
           </AnimatePresence>
         ) : (
           <AnimatePresence exitBeforeEnter>
-            <View style={styles.skeleton} />
+            <MotiView
+              from={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+              }}
+              transition={{
+                type: "timing",
+              }}
+              style={styles.skeleton}
+            />
           </AnimatePresence>
         )}
       </View>

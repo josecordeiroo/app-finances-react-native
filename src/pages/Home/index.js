@@ -28,6 +28,7 @@ const list = [
         date: '05/09/2022',
         type: 1 //receita / entradas
     },
+    
 ]
 
 export default function Home() {
