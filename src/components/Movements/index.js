@@ -2,21 +2,41 @@ import react, { useState } from "react";
 
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
+import { MotiView, AnimatePresence, MotiText } from "moti";
+
 export default function Movements({ data }) {
   const [showValue, setShowValue] = useState(false);
 
   return (
-    <TouchableOpacity style={styles.container} onPress={() => setShowValue(!showValue)} >
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => setShowValue(!showValue)}
+    >
       <Text style={styles.date}>{data.date}</Text>
       <View style={styles.content}>
         <Text style={styles.label}>{data.label}</Text>
 
         {showValue ? (
-          <Text style={data.type === 1 ? styles.value : styles.expense}>
-            {data.type === 1 ? `R$ ${data.value}` : `R$ -${data.value}`}
-          </Text>
+          <AnimatePresence exitBeforeEnter>
+            <MotiText
+            from={{
+              translateX: 100,
+            }}
+            animate={{
+              translateX: 0,
+            }}
+            transition={{
+              type: "timing",
+              duration: 500,
+            }}
+            style={data.type === 1 ? styles.value : styles.expense}>
+              {data.type === 1 ? `R$ ${data.value}` : `R$ -${data.value}`}
+            </MotiText>
+          </AnimatePresence>
         ) : (
-          <View style={styles.skeleton} />
+          <AnimatePresence exitBeforeEnter>
+            <View style={styles.skeleton} />
+          </AnimatePresence>
         )}
       </View>
     </TouchableOpacity>
